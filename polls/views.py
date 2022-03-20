@@ -1,24 +1,18 @@
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.views import generic
 
 from .models import Question, Choice
 
-def list(request):
-    latest_question_list = Question.objects.all()
-    return render(
-        request,
-        "polls/index.html",
-        {"latest_question_list": latest_question_list}
-    )
+class List(generic.ListView):
+    model = Question
+    template_name = "polls/index.html"
+    context_object_name = "latest_question_list"
 
-def details(request, question_id:int):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(
-        request,
-        "polls/details.html",
-        {"question": question}
-    )
+class Details(generic.DetailView):
+    model = Question
+    template_name = "polls/details.html"
 
 def vote(request, question_id:int):
     question = get_object_or_404(Question, pk=question_id)
@@ -38,10 +32,6 @@ def vote(request, question_id:int):
         selected_choice.save()
         return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
 
-def results(request, question_id:int):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(
-        request,
-        "polls/results.html",
-        { "question": question}
-    )
+class Results(generic.DetailView):
+    model = Question
+    template_name = "polls/results.html"
