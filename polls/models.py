@@ -21,4 +21,4 @@ class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return
+        return f'Choice: {self.choice_text} Votes: {self.votes}'
