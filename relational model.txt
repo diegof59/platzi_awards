@@ -1,0 +1,5 @@
+**Relational model: Platzi awards
+
+Question(question_id::PK, statement,publication_date)
+
+Choice(choice_id::PK, choice_text, votes, question::FK)
