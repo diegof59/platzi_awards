@@ -1,12 +1,18 @@
-{% if question_list %}
-  <ul>
-    {% for question in question_list %}
-      <li>
-        <a href="{% url 'polls:details' question.id %}">{{question.id}}</a>
-        {{question.statement}}
-      </li>
-    {% endfor %}
-  </ul>
-{% else %}
-  <p>No polls are available</p>
-{% endif %}
+{% extends 'polls/base.html' %}
+{% block head_content %}
+  <title>Platzi Awards</title>
+{% endblock %}
+{% block content %}
+  {% if question_list %}
+    <ul>
+      {% for question in question_list %}
+        <li>
+          <a href="{% url 'polls:details' question.id %}">{{question.id}}</a>
+          {{question.statement}}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No polls are available</p>
+  {% endif %}
+{% endblock %}
